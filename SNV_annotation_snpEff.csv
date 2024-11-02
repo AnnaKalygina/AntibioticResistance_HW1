@@ -1,0 +1,7 @@
+,Chromosome,Position,Reference Allele,Alternative Allele,Impact,Gene Name,Gene ID,Transcript ID,Variant Type,Amino Acid Change,cDNA Position,Protein Position,Genotype,Depth
+0,NC_000913.3,93043,C,G,MODERATE,ftsI,b0084,b0084,missense_variant,p.Ala544Gly,c.1631C>G,1631/1767,1/1,17
+1,NC_000913.3,482698,T,A,MODERATE,acrB,b0462,b0462,missense_variant,p.Gln569Leu,c.1706A>T,1706/3150,1/1,16
+2,NC_000913.3,852762,A,G,MODIFIER,glnH,b0811,b0811,upstream_gene_variant,,c.-4758T>C,,1/1,14
+3,NC_000913.3,1905761,G,A,MODERATE,mntP,b1821,b1821,missense_variant,p.Gly25Asp,c.74G>A,74/567,1/1,13
+4,NC_000913.3,3535147,A,C,MODERATE,envZ,b3404,b3404,missense_variant,p.Val241Gly,c.722T>G,722/1353,1/1,17
+5,NC_000913.3,4390754,G,T,LOW,rsgA,b4161,b4161,synonymous_variant,p.Ala252Ala,c.756C>A,756/1053,1/1,15
