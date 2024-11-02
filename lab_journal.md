@@ -109,3 +109,11 @@ Reading input from my.mpileup
 9 variant positions (6 SNP, 3 indel)
 0 were failed by the strand-filter
 6 variant positions reported (6 SNP, 0 indel)
+
+The following positions were recognised as stable mutations:
+- 93,043 C -> G (in the gene-b0085, murE)
+- 482,698 T -> A (gene-b0462, acrB)
+- 852,762 A -> G (gene-b4416, small RNA RybA)
+- 1,905,761 G -> A (gene-b1821, mntP)
+- 3,535,147 A -> C (gene-b3404, envZ)
+- 4,390,754 G -> T (gene-b4161, rsgA)
