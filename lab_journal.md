@@ -5,7 +5,7 @@ The [reference genome](/GCF_000005845.2_ASM584v2_genomic.fna.gz) of K-12 *E.coli
 
 The reads from pair-end Illumina shortgun sequencing ([R1](/amp_res_1.fastq.gz) and [R2](/amp_res_2.fastq.gz))of an ampicillin-resistant strain were downloaded from the [following database](https://figshare.com/articles/dataset/amp_res_2_fastq_zip/10006541/3).
 
-To inspect the raw sequences without unpacking the ipped file we use command:
+To inspect the raw sequences without unpacking the zipped file we use command:
 ``` bash
 gzcat amp_res_1.fastq.gz | head
 ```
@@ -52,7 +52,7 @@ Now we repeat the fastqc analysis on trimmed data.
 
 
 ### 3. Aligning sequences to reference
-The alignment files were then compressed
+#### BWA MEM alignment 
 Here is the alignment statistics: 
 891635 + 0 in total (QC-passed reads + QC-failed reads)
 891378 + 0 primary
@@ -70,3 +70,42 @@ Here is the alignment statistics:
 928 + 0 singletons (0.10% : N/A)
 0 + 0 with mate mapped to a different chr
 0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+
+#### Compressing SAM file to BAM
+The alignment files were then compressed, sorted and indexed: 
+``` bash 
+samtools view -S -b alignment.sam > alignment.bam
+samtools sort alignment.bam alignment_sorted.bam
+samtools index alignment_sorted.bam
+```
+#### Visualizing BAM file
+We use Desktop IGV for alignment visualisation. Additionally, the index file for the reference fasta was generated: 
+``` bash 
+samtools faidx GCF_000005845.2_ASM584v2_genomic.fna
+```
+### Variant calling 
+First, we pileup the bases in the reads that do not match reference genome: 
+
+``` bash
+samtools mpileup -f GCF_000005845.2_ASM584v2_genomic.fna alignment_sorted.bam > my.mpileup
+```
+Second, we use VarScan to scan for variants in the reads. 
+The threshold for the minimal variation frequency is 0.30. 6 SNPs were identified (The same result was for --min-var-freq set at 0.50). It allows for the detection of both high-frequency mutations and significant subpopulations, while reducing the likelihood of errors being called as true variants.
+
+``` bash
+varscan mpileup2snp my.mpileup --min-var-freq 0.30 --variants --output-vcf 1 > VarScan_results_var_freq_0.3.vcf
+```
+
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:   8
+Min reads2:     2
+Min var freq:   0.3
+Min avg qual:   15
+P-value thresh: 0.01
+Reading input from my.mpileup
+4641476 bases in pileup file
+9 variant positions (6 SNP, 3 indel)
+0 were failed by the strand-filter
+6 variant positions reported (6 SNP, 0 indel)
