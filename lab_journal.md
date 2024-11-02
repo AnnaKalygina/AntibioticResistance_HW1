@@ -53,6 +53,10 @@ Now we repeat the fastqc analysis on trimmed data.
 
 ### 3. Aligning sequences to reference
 #### BWA MEM alignment 
+The paired output for both forward and reverse reads was aligned to the reference genome using bwa-mem algorithm: 
+``` bash
+bwa mem [reference_file] [forward_reads] [reverse_reads] > alignment.sam 
+```
 Here is the alignment statistics: 
 891635 + 0 in total (QC-passed reads + QC-failed reads)
 891378 + 0 primary
@@ -117,3 +121,5 @@ The following positions were recognised as stable mutations:
 - 1,905,761 G -> A (gene-b1821, mntP)
 - 3,535,147 A -> C (gene-b3404, envZ)
 - 4,390,754 G -> T (gene-b4161, rsgA)
+
+### Variant effect prediction
