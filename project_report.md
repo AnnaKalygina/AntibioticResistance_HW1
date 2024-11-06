@@ -91,8 +91,3 @@ The data was preprocessed and aligned with 97.34% reads surviving.
 | Alignment            | 443,765                 | 443,765                 | 97.34                       |
 
 **Table S1. Read count across analysis steps.**
-
----
-
-### Bibliography
-The bibliography can be included using a reference section with BibTeX or manual entries, as used in LaTeX.
