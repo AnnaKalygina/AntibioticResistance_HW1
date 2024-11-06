@@ -16,7 +16,7 @@ To check how many reads we have we run:
 ``` bash
 gzcat amp_res_1.fastq.gz| grep -v ">" | wc -l
 ```
-There are 1467964 reads for the R1 and 1497339 reads for the R2.
+The reads were counted using `seqkit stats`:
 
 file                format  type  num_seqs     sum_len  min_len  avg_len  max_len
 amp_res_1.fastq.gz  FASTQ   DNA    455,876  46,043,476      101      101      101
@@ -123,3 +123,19 @@ The following positions were recognised as stable mutations:
 - 4,390,754 G -> T (gene-b4161, rsgA)
 
 ### Variant effect prediction
+Create a database
+
+``` bash
+mkdir -p data/k12
+echo "k12.genome : ecoli_K12" > snpEff.config
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.gbff.gz 
+gunzip -c GCF_000005845.2_ASM584v2_genomic.gbff.gz > data/k12/genes.gbk
+```
+For each mutation that changes the protein sequence, we researched the gene functions to determine their role in antibiotic resistance. Our focus was on the *ftsI*, *acrB*, and *mntP* genes, which showed missense mutations potentially contributing to ampicillin resistance.
+
+We made the following conclusions:
+- **Mutations in *ftsI***: Likely altered PBP3 binding affinity, reducing the efficacy of ampicillin.
+- **Mutations in *acrB***: Could have affected efflux pump specificity, increasing ampicillin resistance.
+- **Mutations in *mntP***: May have changed manganese transport, contributing indirectly to resistance.
+
+In addition, a custom script was developed to parse and analyze the SnpEff output for easier interpretation of the variant effects.[script](parsing_snpEff_annotation.ipynb).
